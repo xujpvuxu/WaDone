@@ -1,0 +1,27 @@
+table select,
+table input{
+    width: 70px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+thead tr {
+    background-color: lightblue;
+    border: 1px solid black;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: lightgrey;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: white;
+}
+
+table tbody td {
+    border: 1px solid black;
+    padding: 8px;
+}
