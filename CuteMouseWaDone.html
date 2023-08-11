@@ -10,125 +10,39 @@
 </head>
 
 <body>
-    <div id="app" class="MainContainer p-5">
-        <div v-if="ProcessType ===0">
+    <div id="app" class="p-5">
+        <div v-if="[0,1,2,3,4,5,6].includes(ProcessType)">
             <div class="blackGroundFooter">
-                <div class="balckPictue"><img src="https://img95.699pic.com/element/40110/2334.png_860.png" alt="">
+                <div class="balckPictue">
+                    <img v-if="ProcessType===0" src="./2334.png_860.png">
+                    <img v-if="ProcessType===1" src="./LINE_P20230719_08423900.jpg">
+                    <img v-if="ProcessType===2" src="./入教申請書.jfif">
+                    <img v-if="ProcessType===3" src="./LINE_P20230616_08370460.jpg">
+                    <img v-if="ProcessType===4" src="./LINE_P20230527_17263956.jpg">
+                    <img v-if="ProcessType===5" src="./何進.png">
+                    <img v-if="ProcessType===6" src="./生氣.jfif">
                 </div>
                 <div class="m-3">
                     <div class="form-check form-switch d-flex justify-content-center ">
-                        <input class="form-check-input" type="checkbox" v-model="chooseValue">
-                        <label class="form-check-label text-danger" for="flexSwitchCheckChecked">
-                            <b>是否為萌鼠教教徒</b>
-                        </label>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" @click="ClickChooseButton()"
-                            class="btn btn-primary btn-lg btn-block m-3">確認</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="ProcessType ===1">
-            <div class="blackGroundFooter">
-                <div class="balckPictue"><img src="https://pic4.sucaisucai.com/02/16/02516004_2.jpg" alt=""></div>
-                <div class="m-3">
-                    <div class="form-check form-switch d-flex justify-content-center ">
-                        <input class="form-check-input" type="checkbox" v-model="chooseValue">
-                        <label class="form-check-label text-warning" for="flexSwitchCheckChecked">
-                            <b>是否願意加入萌鼠教？</b>
-                        </label>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" @click="ClickChooseButton()"
-                            class="btn btn-primary btn-lg btn-block m-3">確認</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="ProcessType ===2">
-            <div class="blackGroundFooter">
-                <div class="balckPictue"><img src="data:image/jpeg;base64,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" alt=""></div>
-                <div class="m-3">
-                    <div class="form-check form-switch d-flex justify-content-center ">
-                        <input class="form-check-input" type="checkbox" v-model="chooseValue">
-                        <label class="form-check-label text-warning" for="flexSwitchCheckChecked">
-                            <b>是否願意填寫入教申請書？</b>
-                        </label>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" @click="ClickChooseButton()"
-                            class="btn btn-primary btn-lg btn-block m-3">確認</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="ProcessType ===3">
-            <div class="blackGroundFooter">
-                <div class="balckPictue"><img src="https://p.qqan.com/up/2022-3/16468778136623869.jpg" alt="">
-                </div>
-                <div class="m-3">
-                    <div class="form-check form-switch d-flex justify-content-center ">
-                        <input class="form-check-input" type="checkbox" v-model="chooseValue">
-                        <label class="form-check-label text-warning" for="flexSwitchCheckChecked">
-                            <b>你真的不願意不加入萌鼠教嗎？</b>
-                        </label>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" @click="ClickChooseButton()"
-                            class="btn btn-primary btn-lg btn-block m-3">確認</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="ProcessType ===4">
-            <div class="blackGroundFooter">
-                <div class="balckPictue"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQctpGmF7JUT_i1vSBG3eY4xWBUZ66wSKBRw&usqp=CAU" alt="">
-                </div>
-                <div class="m-3">
-                    <div class="form-check form-switch d-flex justify-content-center ">
-                        <input class="form-check-input" type="checkbox" v-model="chooseValue">
-                        <label class="form-check-label text-warning" for="flexSwitchCheckChecked"><b>教主再問一次真的願意加入萌鼠教嗎?？</b></label>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" @click="ClickChooseButton()"
-                            class="btn btn-primary btn-lg btn-block m-3">確認</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="ProcessType ===5">
-            <div class="blackGroundFooter">
-                <div class="balckPictue"><img src="./何進.png" alt=""></div>
-                    
-                <div class="m-3">
-                    <div class="form-check form-switch d-flex justify-content-center ">
-                        <input class="form-check-input" type="checkbox" v-model="chooseValue">
-                        <label class="form-check-label text-warning" for="flexSwitchCheckChecked">
-                            <b>這絕對不是威脅？</b>
-                            <br>
-                            <b>你願意加入萌鼠教了嗎？</b>
-                        </label>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" @click="ClickChooseButton()"
-                            class="btn btn-primary btn-lg btn-block m-3">確認</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="ProcessType ===6">
-            <div class="blackGroundFooter">
-                <div class="balckPictue"><img src="data:image/jpeg;base64,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" alt=""></div>
-                <div class="m-3">
-                    <div class="form-check form-switch d-flex justify-content-center ">
-                        <input class="form-check-input" type="checkbox" v-model="chooseValue">
-                        <label class="form-check-label text-warning" for="flexSwitchCheckChecked">
-                            <b>教主也不是這麼不通勤答禮的鼠？</b>
-                            <br>
-                            <b>不加入萌鼠教會有些功能受到限制</b>
-                            <br>
-                            <b>願意成為教徒了嗎？</b>
+                        <input class="form-check-input m-3" style="height: 5vh; width: 5vw;" type="checkbox" v-model="chooseValue">
+                        <label class="form-check-label text-danger m-2" for="flexSwitchCheckChecked">
+                            <div v-if="ProcessType===0"><b>是否為萌鼠教教徒</b></div>
+                            <div v-if="ProcessType===1"><b>是否願意加入萌鼠教？</b></div>
+                            <div v-if="ProcessType===2"><b>是否願意填寫萌鼠教入教申請書？</b></div>
+                            <div v-if="ProcessType===3"><b>你真的不願意不加入萌鼠教嗎？</b></div>
+                            <div v-if="ProcessType===4"><b>教主再問一次真的願意加入萌鼠教嗎?？</b></div>
+                            <div v-if="ProcessType===5">
+                                <b>這絕對不是威脅，</b>
+                                <br>
+                                <b>你願意加入萌鼠教了嗎？</b>
+                            </div>
+                            <div v-if="ProcessType===6">
+                                <b>教主也不是這麼不通勤答禮的鼠，</b>
+                                <br>
+                                <b>不加入萌鼠教將會有些功能受到限制</b>
+                                <br>
+                                <b>你願意加入萌鼠教了嗎？</b>
+                            </div>
                         </label>
                     </div>
                     <div class="d-flex justify-content-center">
@@ -223,10 +137,10 @@
                 </table>
             </div>
             <div class="d-flex justify-content-center align-items-center">
-                <button v-if="ProcessType==8" @click="SearchResult" type="button" class="btn btn-primary m-3" style="cursor:pointer;" data-toggle="button"
-                    aria-pressed="false" autocomplete="off">開始尋找</button>
-                <button v-if="ProcessType==7" disabled @click="SearchResult" type="button" class="btn btn-primary m-3" data-toggle="button"
-                    aria-pressed="false" autocomplete="off">開始尋找</button>
+                <button v-if="ProcessType==8" @click="SearchResult" type="button" class="btn btn-primary m-3"
+                    style="cursor:pointer;" data-toggle="button" aria-pressed="false" autocomplete="off">開始尋找</button>
+                <button v-if="ProcessType==7" disabled @click="SearchResult" type="button" class="btn btn-primary m-3"
+                    data-toggle="button" aria-pressed="false" autocomplete="off">開始尋找</button>
             </div>
             <div>總共有：{{ResultCount}}個</div>
             <div>

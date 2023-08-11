@@ -33,7 +33,7 @@ window.onload = function () {
 
         //額外
         ProcessType: 0,
-        chooseValue:false,
+        chooseValue:true,
       };
     },
     watch: {},

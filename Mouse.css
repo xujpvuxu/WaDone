@@ -38,7 +38,10 @@ max-height: 100%;
 }
 .blackGroundFooter{
     width: 90vw;
-    height: 90vh;
+    height: 110vh;
     background-color: black;
     padding: 5%;
+}
+label div{
+font-size: 5vh; 
 }
