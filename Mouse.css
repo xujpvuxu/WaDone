@@ -25,3 +25,20 @@ table tbody td {
     border: 1px solid black;
     padding: 8px;
 }
+
+
+.balckPictue {
+    display: flex;
+    justify-content: center;
+height: 50vh;
+}
+.balckPictue img{
+max-width: 100%;
+max-height: 100%;
+}
+.blackGroundFooter{
+    width: 90vw;
+    height: 90vh;
+    background-color: black;
+    padding: 5%;
+}
