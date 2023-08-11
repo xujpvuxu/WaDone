@@ -214,8 +214,8 @@ window.onload = function () {
                 }
             }
 
-        } else if (path == this.PathCount + 1) {
-            if (startPro == this.selectedEndProperity) {
+        } else if (path == this.PathCount + 1 && this.PathCount !==0) {
+            if (startPro == this.selectedEndProperity&& startEng==  this.endEnergy) {
                 this.Result.push(process);
                 this.ResultCount++;
             }
