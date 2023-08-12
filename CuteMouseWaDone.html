@@ -142,6 +142,9 @@
                 <button v-if="ProcessType==7" disabled @click="SearchResult" type="button" class="btn btn-primary m-3"
                     data-toggle="button" aria-pressed="false" autocomplete="off">開始尋找</button>
             </div>
+            <div v-if="ProcessType==8">結果是否完整：{{isFullResult?'是':'否'}}</div>
+            <div class="text-danger">(因瀏覽器的限制，因此若尋找後結果顯示為否則可使用離線版小工具獲得更好的體驗)</div>
+            <div><a href="#" @click="DownloadFile">離線版下載</a></div>
             <div>總共有：{{ResultCount}}個</div>
             <div>
                 <table>

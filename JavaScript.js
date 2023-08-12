@@ -33,7 +33,8 @@ window.onload = function () {
 
         //額外
         ProcessType: 0,
-        chooseValue:true,
+        chooseValue: true,
+        isFullResult: false,
       };
     },
     watch: {},
@@ -41,35 +42,19 @@ window.onload = function () {
       SearchResult: SearchResult,
       Go: Go,
       ClickChooseButton: ClickChooseButton,
+      DownloadFile:DownloadFile,
     },
-    mounted: function () {},
+    mounted: function () { },
   }).mount("#app");
   function SearchResult() {
     this.ResultCount = 0;
     this.Result = [];
-    this.Go(
-      this.selectedStartProperity,
-      this.startEnergy,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      []
-    );
+    this.isFullResult = false;
+    this.Go(this.selectedStartProperity, this.startEnergy, 0, 0, 0, 0, 0, 0, []);
+    this.isFullResult = true;
   }
-  function Go(
-    startPro,
-    startEng,
-    wood,
-    fire,
-    dust,
-    gold,
-    water,
-    path,
-    process
-  ) {
+
+  function Go(startPro, startEng, wood, fire, dust, gold, water, path, process) {
     path++;
     if (path < this.PathCount + 1 && this.ResultCount <= 100) {
       for (let i = 0; i < 5; i++) {
@@ -261,12 +246,26 @@ window.onload = function () {
       }
     }
   }
-  function ClickChooseButton(){
-    if(this.chooseValue ){
-this.ProcessType=8;
-    }else{
-        this.ProcessType++;
+  function ClickChooseButton() {
+    if (this.chooseValue) {
+      this.ProcessType = 8;
+    } else {
+      this.ProcessType++;
 
     }
+  }
+  function DownloadFile(){
+    var url = './WaDone.rar'; // 將網址A替換成你的zip檔案網址
+            var fileName = '可愛教主聚集地.rar'; // 下載的檔案名稱
+
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = fileName;
+            link.style.display = 'none';
+
+            document.body.appendChild(link);
+            link.click();
+
+            document.body.removeChild(link);
   }
 };
