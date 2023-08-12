@@ -9,7 +9,7 @@ window.onload = function () {
         GoldCount: 0,
         WaterCount: 0,
 
-        PathCount: 0,
+        PathCount: 1,
 
         //起始
         selectedStartProperity: "木",
@@ -197,7 +197,7 @@ window.onload = function () {
                   tempStartPro = "水";
                   break;
 
-                case 水:
+                case "水":
                   break;
               }
             }

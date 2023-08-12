@@ -127,11 +127,11 @@
                     <tbody>
                         <tr>
                             <td>剩餘</td>
-                            <td class="bg-success"><input type="number" v-model="WoodCount" /></td>
-                            <td class="bg-danger"><input type="number" v-model="FireCount" /></td>
-                            <td class="bg-secondary"><input type="number" v-model="DustCount" /></td>
-                            <td class="bg-warning"><input type="number" v-model="GoldCount" /></td>
-                            <td class="bg-info"><input type="number" v-model="WaterCount" /></td>
+                            <td class="bg-success"><input type="number" min="0" v-model="WoodCount" /></td>
+                            <td class="bg-danger"><input type="number" min="0" v-model="FireCount" /></td>
+                            <td class="bg-secondary"><input type="number" min="0" v-model="DustCount" /></td>
+                            <td class="bg-warning"><input type="number" min="0" v-model="GoldCount" /></td>
+                            <td class="bg-info"><input type="number" min="0" v-model="WaterCount" /></td>
                         </tr>
                     </tbody>
                 </table>
