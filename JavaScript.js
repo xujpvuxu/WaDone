@@ -35,6 +35,7 @@ window.onload = function () {
         ProcessType: 0,
         chooseValue: true,
         isFullResult: false,
+        offLineDetail:false,
       };
     },
     watch: {},
