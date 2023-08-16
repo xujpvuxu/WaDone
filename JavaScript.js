@@ -2,6 +2,7 @@ window.onload = function () {
   Vue.createApp({
     data: function () {
       return {
+        UpdateTime: '2023-08-16',
         // 剩餘
         WoodCount: 0,
         FireCount: 0,
@@ -35,7 +36,8 @@ window.onload = function () {
         ProcessType: 0,
         chooseValue: true,
         isFullResult: false,
-        offLineDetail:false,
+        offLineDetail: false,
+        isUpdate: false
       };
     },
     watch: {},
@@ -43,9 +45,22 @@ window.onload = function () {
       SearchResult: SearchResult,
       Go: Go,
       ClickChooseButton: ClickChooseButton,
-      DownloadFile:DownloadFile,
+      DownloadFile: DownloadFile,
     },
-    mounted: function () { },
+    mounted: function () {
+      // 将日期字符串转换为Date对象
+      const inputDate = new Date(this.UpdateTime);
+
+      // 获取今天的日期
+      const today = new Date();
+      if (
+        inputDate.getDate() === today.getDate() &&
+        inputDate.getMonth() === today.getMonth() &&
+        inputDate.getFullYear() === today.getFullYear()
+      ) {
+        this.isUpdate = true;
+      }
+    },
   }).mount("#app");
   function SearchResult() {
     this.ResultCount = 0;
@@ -255,18 +270,18 @@ window.onload = function () {
 
     }
   }
-  function DownloadFile(){
+  function DownloadFile() {
     var url = './WaDone.rar'; // 將網址A替換成你的zip檔案網址
-            var fileName = '可愛教主聚集地.rar'; // 下載的檔案名稱
+    var fileName = '可愛教主聚集地.rar'; // 下載的檔案名稱
 
-            var link = document.createElement('a');
-            link.href = url;
-            link.download = fileName;
-            link.style.display = 'none';
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.style.display = 'none';
 
-            document.body.appendChild(link);
-            link.click();
+    document.body.appendChild(link);
+    link.click();
 
-            document.body.removeChild(link);
+    document.body.removeChild(link);
   }
 };

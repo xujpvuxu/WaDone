@@ -42,3 +42,7 @@ max-height: 100%;
     background-color: black;
     padding: 5%;
 }
+
+.redBackground{
+    background-color: aqua;
+}
