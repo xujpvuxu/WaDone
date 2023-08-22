@@ -2,7 +2,7 @@ window.onload = function () {
   Vue.createApp({
     data: function () {
       return {
-        UpdateTime: '2023-08-16',
+        UpdateTime: '2023-08-22',
         // 剩餘
         WoodCount: 0,
         FireCount: 0,
@@ -271,8 +271,8 @@ window.onload = function () {
     }
   }
   function DownloadFile() {
-    var url = './WaDone.rar'; // 將網址A替換成你的zip檔案網址
-    var fileName = '可愛教主聚集地.rar'; // 下載的檔案名稱
+    var url = './WaDone.zip'; // 將網址A替換成你的zip檔案網址
+    var fileName = '可愛教主聚集地.zip'; // 下載的檔案名稱
 
     var link = document.createElement('a');
     link.href = url;
