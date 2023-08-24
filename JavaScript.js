@@ -2,7 +2,7 @@ window.onload = function () {
   Vue.createApp({
     data: function () {
       return {
-        UpdateTime: '2023-08-22',
+        UpdateTime: '2023-08-24',
         // 剩餘
         WoodCount: 0,
         FireCount: 0,
