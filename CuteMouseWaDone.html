@@ -145,6 +145,7 @@
             <div v-if="ProcessType==8">
                 <div> 結果是否完整：{{isFullResult?'是':'否'}}</div>
                 <div class="text-danger">(因瀏覽器的限制，因此若尋找後結果顯示為否則可使用離線版小工具獲得更好的體驗)</div>
+                <div><a href="#" @click="DownloadFile">下載註冊機</a></div>
                 <div :class="{redBackground:isUpdate}"><a href="#" @click="DownloadFile">最新離線版本下載_{{UpdateTime}}</a><button type="button" class="btn btn-secondary btn-sm" @click="offLineDetail = !offLineDetail">點我看離線版詳細內容</button></div>
                 <div v-show="offLineDetail">
                     <div>離線版功能如下</div>
