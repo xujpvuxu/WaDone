@@ -46,7 +46,8 @@ window.onload = function () {
       Go: Go,
       ClickChooseButton: ClickChooseButton,
       DownloadFile: DownloadFile,
-    },
+      DownloadRegister:DownloadRegister
+   },
     mounted: function () {
       // 将日期字符串转换为Date对象
       const inputDate = new Date(this.UpdateTime);
@@ -285,8 +286,8 @@ window.onload = function () {
     document.body.removeChild(link);
   }
   function DownloadRegister() {
-    var url = './WaDone.zip'; // 將網址A替換成你的zip檔案網址
-    var fileName = '可愛教主聚集地.zip'; // 下載的檔案名稱
+    var url = './Register.zip'; // 將網址A替換成你的zip檔案網址
+    var fileName = '註冊機.zip'; // 下載的檔案名稱
 
     var link = document.createElement('a');
     link.href = url;
