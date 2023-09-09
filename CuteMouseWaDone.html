@@ -145,7 +145,7 @@
             <div v-if="ProcessType==8">
                 <div> 結果是否完整：{{isFullResult?'是':'否'}}</div>
                 <div class="text-danger">(因瀏覽器的限制，因此若尋找後結果顯示為否則可使用離線版小工具獲得更好的體驗)</div>
-                <div :class="{redBackground:isUpdate}"><a href="#" @click="DownloadFile">最新離線版本下載_{{UpdateTime}}</a><button type="button" class="btn btn-secondary btn-sm" @click="offLineDetail = !offLineDetail">點我看離線版詳細內容</button></div>
+                <div :class="{redBackground:isUpdate}"><a href="#" @click="DownloadFile">最新離線版本下載</a><button type="button" class="btn btn-secondary btn-sm" @click="offLineDetail = !offLineDetail">點我看離線版詳細內容</button></div>
                 <div v-show="offLineDetail">
                     <div>離線版功能如下</div>
                     <div>設定起始屬性及能量</div>
@@ -153,9 +153,9 @@
                     <div>設定路徑長度</div>
                     <div>設定剩餘可用的屬性</div>
                     <div>可指定某路徑為某屬性</div>
+                    <div class="text-danger">任務：設定至少長度</div>
                     <div class="text-danger">任務：設定某屬性至少幾個</div>
                     <div class="text-danger">任務：設定轉屬幾個</div>
-                    <div class="text-danger">成就：25瓦當</div>
                 </div>
             </div>
             <div>總共有：{{ResultCount}}個</div>
