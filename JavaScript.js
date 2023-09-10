@@ -45,6 +45,7 @@ window.onload = function () {
       SearchResult: SearchResult,
       Go: Go,
       ClickChooseButton: ClickChooseButton,
+      DownloadRegister: DownloadRegister,
       DownloadFile: DownloadFile,
    },
     mounted: function () {
@@ -270,6 +271,22 @@ window.onload = function () {
 
     }
   }
+
+  function DownloadRegister() {
+    var url = './Register.zip'; // 將網址A替換成你的zip檔案網址
+    var fileName = '註冊機.zip'; // 下載的檔案名稱
+
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.style.display = 'none';
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+  }
+
   function DownloadFile() {
     var url = './WaDone.zip'; // 將網址A替換成你的zip檔案網址
     var fileName = '可愛教主聚集地.zip'; // 下載的檔案名稱
