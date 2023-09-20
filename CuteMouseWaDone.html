@@ -61,7 +61,6 @@
                                 <td></td>
                                 <td>屬性</td>
                                 <td>能量</td>
-                                <td>路徑</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,23 +74,6 @@
                                 <td>
                                     <input type="number" v-model="startEnergy" min="1" max="3" />
                                 </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>中間篩選點</td>
-                                <td>
-                                    <select v-model="selectedMiddleProperity">
-                                        <option v-for="value in properitys" :value="value">{{ value }}</option>
-                                    </select>
-                                </td>
-
-                                <td></td>
-                                <td>
-                                    <select v-model="selectedMiddlePath">
-                                        <option v-for="value in middlePath" :value="value">{{ value }}</option>
-                                    </select>
-                                    <span class="text-danger m-3"><b>若不篩選則選擇0</b></span>
-                                </td>
                             </tr>
                             <tr>
                                 <td>終迄點</td>
@@ -103,7 +85,6 @@
                                 <td>
                                     <input type="number" v-model="endEnergy" min="1" max="3" />
                                 </td>
-                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -145,7 +126,6 @@
             <div v-if="ProcessType==8">
                 <div> 結果是否完整：{{isFullResult?'是':'否'}}</div>
                 <div class="text-danger">(因瀏覽器的限制，因此若尋找後結果顯示為否則可使用離線版小工具獲得更好的體驗)</div>
-                <div :class="{redBackground:isUpdate}"><a href="#" @click="DownloadRegister">註冊機下載</a></div>
                 <div :class="{redBackground:isUpdate}"><a href="#" @click="DownloadFile">最新離線版本下載</a><button type="button" class="btn btn-secondary btn-sm" @click="offLineDetail = !offLineDetail">點我看離線版詳細內容</button></div>
                 <div v-show="offLineDetail">
                     <div>離線版功能如下</div>
