@@ -70,7 +70,7 @@ window.onload = function () {
         ShowArray: [],
 
         //額外
-        ProcessType: 8,
+        ProcessType: 0,
         chooseValue: true,
         isFullResult: false,
         offLineDetail: false,
