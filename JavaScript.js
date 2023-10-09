@@ -186,9 +186,8 @@ window.onload = function () {
         break;
       case 7:
         this.postData.gold.trans = count;
-        break;
-      case 8:
-        this.postData.water.count = count;
+        this.postData.water.count = 23-(this.postData.wood.count-this.postData.fire.count-this.postData.dust.count-this.postData.gold.count);
+        this.fourStatus++;
         break;
       case 9:
         this.postData.water.trans = count;
