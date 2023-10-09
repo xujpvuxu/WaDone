@@ -72,10 +72,6 @@ window.onload = function () {
         //額外
         ProcessType: 0,
         chooseValue: true,
-        isFullResult: false,
-        offLineDetail: false,
-        isUpdate: false
-
       };
     },
     watch: {},
@@ -87,18 +83,13 @@ window.onload = function () {
       SetFourStatus: SetFourStatus
     },
     mounted: function () {
-      // 将日期字符串转换为Date对象
-      const inputDate = new Date(this.UpdateTime);
-
-      // 获取今天的日期
-      const today = new Date();
-      if (
-        inputDate.getDate() === today.getDate() &&
-        inputDate.getMonth() === today.getMonth() &&
-        inputDate.getFullYear() === today.getFullYear()
-      ) {
-        this.isUpdate = true;
+      axios.get('https://feather213.azurewebsites.net/api/WaDone',
+      //axios.get('https://localhost:8080/api/WaDone',
+      {
+      headers: {
+        'Content-Type': 'application/json'
       }
+    })
     },
   }).mount("#app");
 
