@@ -186,7 +186,7 @@ window.onload = function () {
         break;
       case 7:
         this.postData.gold.trans = count;
-        this.postData.water.count = 23-(this.postData.wood.count-this.postData.fire.count-this.postData.dust.count-this.postData.gold.count);
+        this.postData.water.count = 23 - (this.postData.wood.count + this.postData.fire.count + this.postData.dust.count + this.postData.gold.count);
         this.fourStatus++;
         break;
       case 9:
@@ -204,7 +204,7 @@ window.onload = function () {
 
 
   function SearchResult() {
-      this.ShowArray=[];
+    this.ShowArray = [];
     for (let index = 0; index < 5; index++) {
       let innerArray = [];
       for (let i = 0; i < 5; i++) {
@@ -219,7 +219,7 @@ window.onload = function () {
 
     let self = this;
     axios.post('https://feather213.azurewebsites.net/api/WaDone',
-    //axios.post('https://localhost:8080/api/WaDone',
+      //axios.post('https://localhost:8080/api/WaDone',
       this.postData, {
       headers: {
         'Content-Type': 'application/json'
@@ -233,27 +233,27 @@ window.onload = function () {
           for (let index = 0; index < response.data.index.length; index++) {
             const son = parseInt((response.data.index[index] - 1) / 5);
             const add = parseInt((response.data.index[index] - 1) % 5);
-            self.ShowArray[son][add].color = response.data.result[index]+1;
+            self.ShowArray[son][add].color = response.data.result[index] + 1;
 
             // 轉彎圖示設定
             if (response.data.trans.indexOf(response.data.index[index]) >= 0) {
 
-              let diffSource = response.data.index[index]-response.data.index[index - 1];
-              let diffTarget = response.data.index[index]+1-response.data.index[index];
+              let diffSource = response.data.index[index] - response.data.index[index - 1];
+              let diffTarget = response.data.index[index] + 1 - response.data.index[index];
 
-              if(diffSource == 5){
-                self.ShowArray[son][add].text = (diffTarget == 1)?"└":"┘";
-              } else if(diffSource == 1){
-                self.ShowArray[son][add].text = (diffTarget == -5)?"┘":"┐";
-              } else if(diffSource == -5){
-                self.ShowArray[son][add].text = (diffTarget == 1)?"┌":"┐";
-              } else if(diffSource == -1){
-                self.ShowArray[son][add].text = (diffTarget == -5)?"└":"┌";
+              if (diffSource == 5) {
+                self.ShowArray[son][add].text = (diffTarget == 1) ? "└" : "┘";
+              } else if (diffSource == 1) {
+                self.ShowArray[son][add].text = (diffTarget == -5) ? "┘" : "┐";
+              } else if (diffSource == -5) {
+                self.ShowArray[son][add].text = (diffTarget == 1) ? "┌" : "┐";
+              } else if (diffSource == -1) {
+                self.ShowArray[son][add].text = (diffTarget == -5) ? "└" : "┌";
               }
-            }else if(index==0){
-                self.ShowArray[son][add].text = "🐭";
-            }else if(index==response.data.index.length-1){
-                self.ShowArray[son][add].text = "🧀";
+            } else if (index == 0) {
+              self.ShowArray[son][add].text = "🐭";
+            } else if (index == response.data.index.length - 1) {
+              self.ShowArray[son][add].text = "🧀";
             }
           }
         }
