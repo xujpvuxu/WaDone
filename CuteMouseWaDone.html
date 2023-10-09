@@ -336,23 +336,23 @@
                                         <button v-if="postData.task_Properity === 0" type="button"
                                             class="btn btn-primary m-3 bg-success" data-toggle="button"
                                             aria-pressed="false"
-                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                            autocomplete="off">{{properitys[postData.task_Properity]}}</button>
                                         <button v-else-if="postData.task_Properity === 1" type="button"
                                             class="btn btn-primary m-3 bg-danger" data-toggle="button"
                                             aria-pressed="false"
-                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                            autocomplete="off">{{properitys[postData.task_Properity]}}</button>
                                         <button v-else-if="postData.task_Properity === 2" type="button"
                                             class="btn btn-primary m-3 bg-secondary" data-toggle="button"
                                             aria-pressed="false"
-                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                            autocomplete="off">{{properitys[postData.task_Properity]}}</button>
                                         <button v-else-if="postData.task_Properity === 3" type="button"
                                             class="btn btn-primary m-3 bg-warning" data-toggle="button"
                                             aria-pressed="false"
-                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                            autocomplete="off">{{properitys[postData.task_Properity]}}</button>
                                         <button v-else-if="postData.task_Properity === 4" type="button"
                                             class="btn btn-primary m-3 bg-info" data-toggle="button"
                                             aria-pressed="false"
-                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                            autocomplete="off">{{properitys[postData.task_Properity]}}</button>
                                     </td>
                                     <td>
                                         <input type="number" v-model="postData.task_Properity_Count" min="0" />
