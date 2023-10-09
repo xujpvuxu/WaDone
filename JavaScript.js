@@ -2,37 +2,75 @@ window.onload = function () {
   Vue.createApp({
     data: function () {
       return {
-        // 剩餘
-        WoodCount: 0,
-        FireCount: 0,
-        DustCount: 0,
-        GoldCount: 0,
-        WaterCount: 0,
+        postData: {
+          start: {
+            properity: 4,
+            energy: 3
+          },
+          end: {
+            properity: 3,
+            energy: 3
+          },
+          pathCount: 7,
+          wood: {
+            count: 6,
+            trans: 1
+          },
+          fire: {
+            count: 5,
+            trans: 2
+          },
+          dust: {
+            count: 4,
+            trans: 3
+          },
+          gold: {
+            count: 6,
+            trans: 2
+          },
+          water: {
+            count: 2,
+            trans: 1
+          },
+          task_Properity: 0,
+          task_Properity_Count: 0,
+          task_TransProperity: 0,
 
-        PathCount: 1,
-
-        //起始
-        selectedStartProperity: "木",
-        startEnergy: 1,
-
-        //中間
-        selectedMiddleProperity: "木",
-        selectedMiddlePath: 0,
-
-        //結尾
-        selectedEndProperity: "木",
-        endEnergy: 1,
-
-        // 其他
+          needResult: true,
+          startPath_0: {
+            x: 1,
+            y: 1
+          },
+          startPath_1: {
+            x: 2,
+            y: 1
+          },
+          endPath_0: {
+            x: 4,
+            y: 4
+          },
+          endPath_1: {
+            x: 4,
+            y: 3
+          },
+        },
         properitys: ["木", "火", "土", "金", "水"],
-        middlePath: [0, 1, 2, 3, 4, 5, 6, 7],
+
+        pointStatus: 0,
+
+        fourStatus: 0,
+
+        tempPathLimit: 0,
+
 
         // 結果
         Result: [],
-        ResultCount: 0,
+        ResultTrans: [],
+
+        ShowArray: [],
 
         //額外
-        ProcessType: 0,
+        ProcessType: 8,
         chooseValue: true,
         isFullResult: false,
         offLineDetail: false,
@@ -42,10 +80,11 @@ window.onload = function () {
     },
     watch: {},
     methods: {
-      SearchResult: SearchResult,
-      Go: Go,
       ClickChooseButton: ClickChooseButton,
       DownloadFile: DownloadFile,
+      SetPoint: SetPoint,
+      SearchResult: SearchResult,
+      SetFourStatus: SetFourStatus
     },
     mounted: function () {
       // 将日期字符串转换为Date对象
@@ -62,206 +101,8 @@ window.onload = function () {
       }
     },
   }).mount("#app");
-  function SearchResult() {
-    this.ResultCount = 0;
-    this.Result = [];
-    this.isFullResult = false;
-    this.Go(this.selectedStartProperity, this.startEnergy, 0, 0, 0, 0, 0, 0, []);
-    this.isFullResult = true;
-  }
 
-  function Go(startPro, startEng, wood, fire, dust, gold, water, path, process) {
-    path++;
-    if (path < this.PathCount + 1 && this.ResultCount <= 100) {
-      for (let i = 0; i < 5; i++) {
-        let tempStartPro = startPro;
-        let tempStartEng = startEng;
-        let tempWood = wood;
-        let tempFire = fire;
-        let tempDust = dust;
-        let tempGold = gold;
-        let tempWater = water;
 
-        let isRun = false;
-
-        let tempProcess = JSON.parse(JSON.stringify(process));
-        switch (this.properitys[i]) {
-          case "木":
-            tempWood++;
-            if (tempWood <= this.WoodCount) {
-              isRun = true;
-              switch (startPro) {
-                case "木":
-                  break;
-                case "火":
-                  tempStartEng++;
-                  break;
-                case "土":
-                  tempStartEng--;
-                  break;
-                case "金":
-                  tempStartEng--;
-                  break;
-                case "水":
-                  tempStartPro = "木";
-                  break;
-              }
-            }
-            break;
-          case "火":
-            tempFire++;
-            if (tempFire <= this.FireCount) {
-              isRun = true;
-              // 一開始屬性 遇到火
-              switch (startPro) {
-                case "木":
-                  tempStartPro = "火";
-                  break;
-
-                case "火":
-                  break;
-
-                case "土":
-                  tempStartEng++;
-                  break;
-
-                case "金":
-                  tempStartEng--;
-                  break;
-
-                case "水":
-                  tempStartEng--;
-                  break;
-              }
-            }
-            break;
-          case "土":
-            tempDust++;
-            if (tempDust <= this.DustCount) {
-              isRun = true;
-              // 一開始屬性 遇到土
-              switch (startPro) {
-                case "木":
-                  tempStartEng--;
-                  break;
-
-                case "火":
-                  tempStartPro = "土";
-                  break;
-
-                case "土":
-                  break;
-
-                case "金":
-                  tempStartEng++;
-                  break;
-
-                case "水":
-                  tempStartEng--;
-                  break;
-              }
-            }
-            break;
-
-          case "金":
-            tempGold++;
-            if (tempGold <= this.GoldCount) {
-              isRun = true;
-              // 一開始屬性 遇到金
-              switch (startPro) {
-                case "木":
-                  tempStartEng--;
-                  break;
-
-                case "火":
-                  tempStartEng--;
-                  break;
-
-                case "土":
-                  tempStartPro = "金";
-                  break;
-
-                case "金":
-                  break;
-
-                case "水":
-                  tempStartEng++;
-                  break;
-              }
-            }
-            break;
-
-          case "水":
-            tempWater++;
-            if (tempWater <= this.WaterCount) {
-              isRun = true;
-              // 一開始屬性 遇到水
-              switch (startPro) {
-                case "木":
-                  tempStartEng++;
-                  break;
-
-                case "火":
-                  tempStartEng--;
-                  break;
-
-                case "土":
-                  tempStartEng--;
-                  break;
-
-                case "金":
-                  tempStartPro = "水";
-                  break;
-
-                case "水":
-                  break;
-              }
-            }
-            break;
-        }
-        if (isRun) {
-          if (tempStartEng != 0 && tempStartEng != 4) {
-            if (this.selectedMiddlePath === 0) {
-              tempProcess.push(this.properitys[i]);
-              this.Go(
-                tempStartPro,
-                tempStartEng,
-                tempWood,
-                tempFire,
-                tempDust,
-                tempGold,
-                tempWood,
-                path,
-                tempProcess
-              );
-            } else {
-              if (path === this.selectedMiddlePath) {
-                if (this.properitys[i] !== this.selectedMiddleProperity) {
-                  tempProcess.push(this.properitys[i]);
-                  this.Go(
-                    tempStartPro,
-                    tempStartEng,
-                    tempWood,
-                    tempFire,
-                    tempDust,
-                    tempGold,
-                    tempWood,
-                    path,
-                    tempProcess
-                  );
-                }
-              }
-            }
-          }
-        }
-      }
-    } else if (path == this.PathCount + 1 && this.PathCount !== 0) {
-      if (startPro == this.selectedEndProperity && startEng == this.endEnergy) {
-        this.Result.push(process);
-        this.ResultCount++;
-      }
-    }
-  }
   function ClickChooseButton() {
     if (this.chooseValue) {
       this.ProcessType = 8;
@@ -284,5 +125,139 @@ window.onload = function () {
     link.click();
 
     document.body.removeChild(link);
+  }
+
+  function SetPoint(x, y) {
+
+    switch (this.pointStatus) {
+      case 0:
+        this.postData.startPath_0.x = x;
+        this.postData.startPath_0.y = y;
+        break;
+      case 1:
+        this.postData.startPath_1.x = x;
+        this.postData.startPath_1.y = y;
+        break;
+      case 2:
+        this.postData.endPath_0.x = x;
+        this.postData.endPath_0.y = y;
+        break;
+      case 3:
+        this.postData.endPath_1.x = x;
+        this.postData.endPath_1.y = y;
+        let diffx = Math.abs(this.postData.endPath_1.x - this.postData.startPath_1.x);
+        let diffy = Math.abs(this.postData.endPath_1.y - this.postData.startPath_1.y);
+        this.tempPathLimit = diffx + diffy + 3;
+        this.postData.pathCount = this.tempPathLimit;
+        break;
+      default:
+        break;
+    }
+
+    this.pointStatus++;
+    if (this.pointStatus == 4) {
+      this.pointStatus = 0;
+    }
+
+  }
+
+  function SetFourStatus(count) {
+    switch (this.fourStatus) {
+      case 0:
+        this.postData.wood.count = count;
+        break;
+      case 1:
+        this.postData.wood.trans = count;
+        break;
+      case 2:
+        this.postData.fire.count = count;
+        break;
+      case 3:
+        this.postData.fire.trans = count;
+        break;
+      case 4:
+        this.postData.dust.count = count;
+        break;
+      case 5:
+        this.postData.dust.trans = count;
+        break;
+      case 6:
+        this.postData.gold.count = count;
+        break;
+      case 7:
+        this.postData.gold.trans = count;
+        break;
+      case 8:
+        this.postData.water.count = count;
+        break;
+      case 9:
+        this.postData.water.trans = count;
+        break;
+      default:
+        break;
+    }
+    this.fourStatus++;
+    if (this.fourStatus == 10) {
+      this.fourStatus = 0;
+    }
+
+  }
+
+
+  function SearchResult() {
+      this.ShowArray=[];
+    for (let index = 0; index < 5; index++) {
+      let innerArray = [];
+      for (let i = 0; i < 5; i++) {
+        let obj = {
+          color: "",  // 这里可以设置颜色的初始值
+          text: ""    // 这里可以设置 Text 的初始值
+        };
+        innerArray.push(obj);
+      }
+      this.ShowArray.push(innerArray);
+    }
+
+    let self = this;
+    axios.get('https://feather213.azurewebsites.net/api/WaDone',
+    //axios.post('https://localhost:8080/api/WaDone',
+      this.postData, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.data.result.length != 0) {
+          this.Result = response.data.result;
+          this.ResultTrans = response.data.trans;
+
+          for (let index = 0; index < response.data.index.length; index++) {
+            const son = parseInt((response.data.index[index] - 1) / 5);
+            const add = parseInt((response.data.index[index] - 1) % 5);
+            self.ShowArray[son][add].color = response.data.result[index]+1;
+
+            // 轉彎圖示設定
+            if (response.data.trans.indexOf(response.data.index[index]) >= 0) {
+
+              let diffSource = response.data.index[index]-response.data.index[index - 1];
+              let diffTarget = response.data.index[index]+1-response.data.index[index];
+
+              if(diffSource == 5){
+                self.ShowArray[son][add].text = (diffTarget == 1)?"└":"┘";
+              } else if(diffSource == 1){
+                self.ShowArray[son][add].text = (diffTarget == -5)?"┘":"┐";
+              } else if(diffSource == -5){
+                self.ShowArray[son][add].text = (diffTarget == 1)?"┌":"┐";
+              } else if(diffSource == -1){
+                self.ShowArray[son][add].text = (diffTarget == -5)?"└":"┌";
+              }
+            }else if(index==0){
+                self.ShowArray[son][add].text = "🐭";
+            }else if(index==response.data.index.length-1){
+                self.ShowArray[son][add].text = "🧀";
+            }
+          }
+        }
+      })
   }
 };

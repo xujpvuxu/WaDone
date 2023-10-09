@@ -46,3 +46,17 @@ max-height: 100%;
 .redBackground{
     background-color: aqua;
 }
+
+.resultTable {
+    width:300px;
+    border-collapse:collapse;
+}
+
+.resultTable td {
+    background-color: white;
+    width:60px;
+
+}
+.resultTable div{
+    height:100px;
+}

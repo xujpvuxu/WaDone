@@ -11,6 +11,7 @@
 
 <body>
     <div id="app" class="p-5">
+        <button @click="SearchResult">123</button>
         <div v-if="[0,1,2,3,4,5,6].includes(ProcessType)">
             <div class="blackGroundFooter">
                 <div class="balckPictue">
@@ -55,10 +56,49 @@
         <div v-else-if="ProcessType === 7||ProcessType === 8">
             <div class="d-flex">
                 <div class="col-12">
-                    <table>
+                    <h1 class="bg-info">1.選擇起訖點</h1>
+                    <div>
+                        <div>順序{{pointStatus}}</div>
+                        <table class="m-3">
+                            <tr v-for="y in 5">
+                                <td v-for="x in 5" style="cursor:pointer;" @click="SetPoint(x,y)">
+                                    <button type="button" class="btn btn-primary m-3 bg-success" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false"
+                                        autocomplete="off">{{x}},{{y}}</button>
+                                    {{x+(y-1)*5}}
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="m-3">
+                            <thead>
+                                <tr>
+                                    <td>點</td>
+                                    <td>點位</td>
+                                    <td>點</td>
+                                    <td>點位</td>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>初始點</td>
+                                <td>{{postData.startPath_0.x+(postData.startPath_0.y-1)*5}}</td>
+                                <td>初始後一點</td>
+                                <td>{{postData.startPath_1.x+(postData.startPath_1.y-1)*5}}</td>
+                            </tr>
+                            <tr>
+                                <td>終迄點</td>
+                                <td>{{postData.endPath_0.x+(postData.endPath_0.y-1)*5}}</td>
+                                <td>終迄前一點</td>
+                                <td>{{postData.endPath_1.x+(postData.endPath_1.y-1)*5}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <h1 class="bg-info">2.選擇訖點能量</h1>
+                    <table class="m-3">
                         <thead>
                             <tr>
                                 <td></td>
+                                <td>選擇屬性</td>
+                                <td>選擇能量</td>
                                 <td>屬性</td>
                                 <td>能量</td>
                             </tr>
@@ -67,55 +107,311 @@
                             <tr>
                                 <td>起始點</td>
                                 <td>
-                                    <select v-model="selectedStartProperity">
-                                        <option v-for="value in properitys" :value="value">{{ value }}</option>
-                                    </select>
+                                    <button @click="postData.start.properity = 0" type="button"
+                                        class="btn btn-primary m-3 bg-success" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">木</button>
+                                    <button @click="postData.start.properity = 1" type="button"
+                                        class="btn btn-primary m-3 bg-danger" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">火</button>
+                                    <button @click="postData.start.properity = 2" type="button"
+                                        class="btn btn-primary m-3 bg-secondary" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">土</button>
+                                    <button @click="postData.start.properity = 3" type="button"
+                                        class="btn btn-primary m-3 bg-warning" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">金</button>
+                                    <button @click="postData.start.properity = 4" type="button"
+                                        class="btn btn-primary m-3 bg-info" style="cursor:pointer;" data-toggle="button"
+                                        aria-pressed="false" autocomplete="off">水</button>
                                 </td>
                                 <td>
-                                    <input type="number" v-model="startEnergy" min="1" max="3" />
+                                    <button @click="postData.start.energy =1" type="button"
+                                        class="btn btn-primary m-3 bg-success" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">1</button>
+                                    <button @click="postData.start.energy =2" type="button"
+                                        class="btn btn-primary m-3 bg-danger" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">2</button>
+                                    <button @click="postData.start.energy =3" type="button"
+                                        class="btn btn-primary m-3 bg-info" style="cursor:pointer;" data-toggle="button"
+                                        aria-pressed="false" autocomplete="off">3</button>
+                                </td>
+                                <td>
+                                    <div>
+                                        <button v-if="postData.start.properity === 0" @click="SetPoint(x,y)"
+                                            type="button" class="btn btn-primary m-3 bg-success" style="cursor:pointer;"
+                                            data-toggle="button" aria-pressed="false"
+                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                        <button v-else-if="postData.start.properity === 1" @click="SetPoint(x,y)"
+                                            type="button" class="btn btn-primary m-3 bg-danger" style="cursor:pointer;"
+                                            data-toggle="button" aria-pressed="false"
+                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                        <button v-else-if="postData.start.properity === 2" @click="SetPoint(x,y)"
+                                            type="button" class="btn btn-primary m-3 bg-secondary"
+                                            style="cursor:pointer;" data-toggle="button" aria-pressed="false"
+                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                        <button v-else-if="postData.start.properity === 3" @click="SetPoint(x,y)"
+                                            type="button" class="btn btn-primary m-3 bg-warning" style="cursor:pointer;"
+                                            data-toggle="button" aria-pressed="false"
+                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                        <button v-else-if="postData.start.properity === 4" @click="SetPoint(x,y)"
+                                            type="button" class="btn btn-primary m-3 bg-info" style="cursor:pointer;"
+                                            data-toggle="button" aria-pressed="false"
+                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" v-model="postData.start.energy" min="1" max="3" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>終迄點</td>
                                 <td>
-                                    <select v-model="selectedEndProperity">
-                                        <option v-for="value in properitys" :value="value">{{ value }}</option>
-                                    </select>
+                                    <button @click="postData.end.properity = 0" type="button"
+                                        class="btn btn-primary m-3 bg-success" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">木</button>
+                                    <button @click="postData.end.properity = 1" type="button"
+                                        class="btn btn-primary m-3 bg-danger" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">火</button>
+                                    <button @click="postData.end.properity = 2" type="button"
+                                        class="btn btn-primary m-3 bg-secondary" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">土</button>
+                                    <button @click="postData.end.properity = 3" type="button"
+                                        class="btn btn-primary m-3 bg-warning" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">金</button>
+                                    <button @click="postData.end.properity = 4" type="button"
+                                        class="btn btn-primary m-3 bg-info" style="cursor:pointer;" data-toggle="button"
+                                        aria-pressed="false" autocomplete="off">水</button>
                                 </td>
                                 <td>
-                                    <input type="number" v-model="endEnergy" min="1" max="3" />
+                                    <button @click="postData.end.energy =1" type="button"
+                                        class="btn btn-primary m-3 bg-success" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">1</button>
+                                    <button @click="postData.end.energy =2" type="button"
+                                        class="btn btn-primary m-3 bg-danger" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false" autocomplete="off">2</button>
+                                    <button @click="postData.end.energy =3" type="button"
+                                        class="btn btn-primary m-3 bg-info" style="cursor:pointer;" data-toggle="button"
+                                        aria-pressed="false" autocomplete="off">3</button>
+                                </td>
+                                <td>
+                                    <button v-if="postData.end.properity === 0" @click="SetPoint(x,y)" type="button"
+                                        class="btn btn-primary m-3 bg-success" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false"
+                                        autocomplete="off">{{properitys[postData.end.properity]}}</button>
+                                    <button v-else-if="postData.end.properity === 1" @click="SetPoint(x,y)"
+                                        type="button" class="btn btn-primary m-3 bg-danger" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false"
+                                        autocomplete="off">{{properitys[postData.end.properity]}}</button>
+                                    <button v-else-if="postData.end.properity === 2" @click="SetPoint(x,y)"
+                                        type="button" class="btn btn-primary m-3 bg-secondary" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false"
+                                        autocomplete="off">{{properitys[postData.end.properity]}}</button>
+                                    <button v-else-if="postData.end.properity === 3" @click="SetPoint(x,y)"
+                                        type="button" class="btn btn-primary m-3 bg-warning" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false"
+                                        autocomplete="off">{{properitys[postData.end.properity]}}</button>
+                                    <button v-else-if="postData.end.properity === 4" @click="SetPoint(x,y)"
+                                        type="button" class="btn btn-primary m-3 bg-info" style="cursor:pointer;"
+                                        data-toggle="button" aria-pressed="false"
+                                        autocomplete="off">{{properitys[postData.end.properity]}}</button>
+                                </td>
+                                <td>
+                                    <input type="number" v-model="postData.end.energy" min="1" max="3" />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+
+                    <h1 class="bg-info">3.選擇路徑</h1>
+                    <div class="text-center m-4">路徑長度： <input type="number" v-model="postData.pathCount" min="1"
+                            step="2" /> </div>
+
+                    <h1 class="bg-info">4.選擇場上剩餘屬性量</h1>
+                    <div>
+                        <table>
+                            <tr v-for="y in 3">
+                                <td v-for="x in 3" @click="SetFourStatus(x+((y-1)*3))" style="cursor:pointer;">
+                                    <button type="button" 
+                                        class="btn btn-primary m-3 bg-info"  data-toggle="button"
+                                        aria-pressed="false" autocomplete="off">{{x+((y-1)*3)}}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button type="button" @click="SetFourStatus(0)" class="btn btn-primary m-3 bg-info"
+                                        style="cursor:pointer;" data-toggle="button" aria-pressed="false"
+                                        autocomplete="off">0</button>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <table class="m-3">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td class="bg-success">木</td>
+                                    <td class="bg-danger">火</td>
+                                    <td class="bg-secondary">土</td>
+                                    <td class="bg-warning">金</td>
+                                    <td class="bg-info">水</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>剩餘</td>
+                                    <td class="bg-success"><input type="number" min="0" v-model="postData.wood.count" />
+                                    </td>
+                                    <td class="bg-danger"><input type="number" min="0" v-model="postData.fire.count" />
+                                    </td>
+                                    <td class="bg-secondary"><input type="number" min="0"
+                                            v-model="postData.dust.count" /></td>
+                                    <td class="bg-warning"><input type="number" min="0" v-model="postData.gold.count" />
+                                    </td>
+                                    <td class="bg-info"><input type="number" min="0" v-model="postData.water.count" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>轉彎剩餘</td>
+                                    <td class="bg-success"><input type="number" min="0" v-model="postData.wood.trans" />
+                                    </td>
+                                    <td class="bg-danger"><input type="number" min="0" v-model="postData.fire.trans" />
+                                    </td>
+                                    <td class="bg-secondary"><input type="number" min="0"
+                                            v-model="postData.dust.trans" /></td>
+                                    <td class="bg-warning"><input type="number" min="0" v-model="postData.gold.trans" />
+                                    </td>
+                                    <td class="bg-info"><input type="number" min="0" v-model="postData.water.trans" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h1 class="bg-info">5.任務(無的話 幾個=0)</h1>
+                    <div>
+                        <table class="m-3">
+                            <thead>
+                                <tr>
+                                    <td>任務</td>
+                                    <td>選擇屬性</td>
+                                    <td>選擇個數</td>
+                                    <td>屬性</td>
+                                    <td>幾個</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>至少</td>
+                                    <td>
+                                        <button @click="postData.task_Properity = 0" type="button"
+                                            class="btn btn-primary m-3 bg-success" style="cursor:pointer;"
+                                            data-toggle="button" aria-pressed="false" autocomplete="off">木</button>
+                                        <button @click="postData.task_Properity = 1" type="button"
+                                            class="btn btn-primary m-3 bg-danger" style="cursor:pointer;"
+                                            data-toggle="button" aria-pressed="false" autocomplete="off">火</button>
+                                        <button @click="postData.task_Properity = 2" type="button"
+                                            class="btn btn-primary m-3 bg-secondary" style="cursor:pointer;"
+                                            data-toggle="button" aria-pressed="false" autocomplete="off">土</button>
+                                        <button @click="postData.task_Properity = 3" type="button"
+                                            class="btn btn-primary m-3 bg-warning" style="cursor:pointer;"
+                                            data-toggle="button" aria-pressed="false" autocomplete="off">金</button>
+                                        <button @click="postData.task_Properity = 4" type="button"
+                                            class="btn btn-primary m-3 bg-info" style="cursor:pointer;"
+                                            data-toggle="button" aria-pressed="false" autocomplete="off">水</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" @click="postData.task_Properity_Count = 0"
+                                            class="btn btn-primary m-3 bg-success" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">0</button>
+                                        <button type="button" @click="postData.task_Properity_Count = 3"
+                                            class="btn btn-primary m-3 bg-danger" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">3</button>
+                                        <button type="button" @click="postData.task_Properity_Count = 5"
+                                            class="btn btn-primary m-3 bg-secondary" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">5</button>
+                                        <button type="button" @click="postData.task_Properity_Count = 7"
+                                            class="btn btn-primary m-3 bg-warning" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">7</button>
+                                    </td>
+                                    <td>
+                                        <button v-if="postData.task_Properity === 0" type="button"
+                                            class="btn btn-primary m-3 bg-success" data-toggle="button"
+                                            aria-pressed="false"
+                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                        <button v-else-if="postData.task_Properity === 1" type="button"
+                                            class="btn btn-primary m-3 bg-danger" data-toggle="button"
+                                            aria-pressed="false"
+                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                        <button v-else-if="postData.task_Properity === 2" type="button"
+                                            class="btn btn-primary m-3 bg-secondary" data-toggle="button"
+                                            aria-pressed="false"
+                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                        <button v-else-if="postData.task_Properity === 3" type="button"
+                                            class="btn btn-primary m-3 bg-warning" data-toggle="button"
+                                            aria-pressed="false"
+                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                        <button v-else-if="postData.task_Properity === 4" type="button"
+                                            class="btn btn-primary m-3 bg-info" data-toggle="button"
+                                            aria-pressed="false"
+                                            autocomplete="off">{{properitys[postData.start.properity]}}</button>
+                                    </td>
+                                    <td>
+                                        <input type="number" v-model="postData.task_Properity_Count" min="0" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>轉數</td>
+                                    <td></td>
+                                    <td>
+                                        <button type="button" @click="postData.task_TransProperity = 0"
+                                            class="btn btn-primary m-3 bg-success" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">0</button>
+                                        <button type="button" @click="postData.task_TransProperity = 12"
+                                            class="btn btn-primary m-3 bg-danger" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">12</button>
+                                        <button type="button" @click="postData.task_TransProperity = 15"
+                                            class="btn btn-primary m-3 bg-secondary" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">15</button>
+                                        <button type="button" @click="postData.task_TransProperity = 18"
+                                            class="btn btn-primary m-3 bg-warning" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">18</button>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <input type="number" v-model="postData.task_TransProperity" min="0" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div>
+                        <table class="m-3 resultTable col-6">
+                            <tr v-for="y in ShowArray">
+                                <td v-for="x in y">
+                                    <div v-if=" x.color == 0" class="bg-white">
+                                        <div>{{x.text}}</div>
+                                    </div>
+                                    <div v-else-if=" x.color == 1" class="bg-success d-flex">
+                                        <div class="m-auto" style="height: 10px; width: 10px;">{{x.text}}</div>
+                                    </div>
+                                    <div v-else-if=" x.color == 2" class="bg-danger d-flex">
+                                        <div class="m-auto" style="height: 10px; width: 10px;">{{x.text}}</div>
+                                    </div>
+                                    <div v-else-if=" x.color == 3" class="bg-secondary d-flex">
+                                        <div class="m-auto" style="height: 10px; width: 10px;">{{x.text}}</div>
+                                    </div>
+                                    <div v-else-if=" x.color == 4" class="bg-warning d-flex">
+                                        <div class="m-auto" style="height: 10px; width: 10px;">{{x.text}}</div>
+                                    </div>
+                                    <div v-else-if=" x.color == 5" class="bg-info d-flex">
+                                        <div class="m-auto" style="height: 10px; width: 10px;">{{x.text}}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-
-            <div class="text-center m-4">路徑長度： <input type="number" v-model="PathCount" min="1" /> </div>
-
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td></td>
-                            <td class="bg-success">木</td>
-                            <td class="bg-danger">火</td>
-                            <td class="bg-secondary">土</td>
-                            <td class="bg-warning">金</td>
-                            <td class="bg-info">水</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>剩餘</td>
-                            <td class="bg-success"><input type="number" min="0" v-model="WoodCount" /></td>
-                            <td class="bg-danger"><input type="number" min="0" v-model="FireCount" /></td>
-                            <td class="bg-secondary"><input type="number" min="0" v-model="DustCount" /></td>
-                            <td class="bg-warning"><input type="number" min="0" v-model="GoldCount" /></td>
-                            <td class="bg-info"><input type="number" min="0" v-model="WaterCount" /></td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
             <div class="d-flex justify-content-center align-items-center">
                 <button v-if="ProcessType==8" @click="SearchResult" type="button" class="btn btn-primary m-3"
@@ -126,7 +422,9 @@
             <div v-if="ProcessType==8">
                 <div> 結果是否完整：{{isFullResult?'是':'否'}}</div>
                 <div class="text-danger">(因瀏覽器的限制，因此若尋找後結果顯示為否則可使用離線版小工具獲得更好的體驗)</div>
-                <div :class="{redBackground:isUpdate}"><a href="#" @click="DownloadFile">最新離線版本下載</a><button type="button" class="btn btn-secondary btn-sm" @click="offLineDetail = !offLineDetail">點我看離線版詳細內容</button></div>
+                <div :class="{redBackground:isUpdate}"><a href="#" @click="DownloadFile">最新離線版本下載</a><button
+                        type="button" class="btn btn-secondary btn-sm"
+                        @click="offLineDetail = !offLineDetail">點我看離線版詳細內容</button></div>
                 <div v-show="offLineDetail">
                     <div>離線版功能如下</div>
                     <div>設定起始屬性及能量</div>
@@ -139,26 +437,10 @@
                     <div class="text-danger">任務：設定轉屬幾個</div>
                 </div>
             </div>
-            <div>總共有：{{ResultCount}}個</div>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td v-for="value in PathCount">{{value}}</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="trresult in Result">
-                            <td v-for="tdresult in trresult">
-                                {{tdresult}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
         <script src="https://unpkg.com/vue@next"></script>
         <script src="JavaScript.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 
 </html>
