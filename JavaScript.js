@@ -42,16 +42,16 @@ window.onload = function () {
             y: 1
           },
           startPath_1: {
-            x: 2,
+            x: 1,
             y: 1
           },
           endPath_0: {
-            x: 4,
-            y: 4
+            x: 1,
+            y: 1
           },
           endPath_1: {
-            x: 4,
-            y: 3
+            x: 1,
+            y: 1
           },
         },
         properitys: ["木", "火", "土", "金", "水"],
@@ -219,7 +219,7 @@ window.onload = function () {
     }
 
     let self = this;
-    axios.get('https://feather213.azurewebsites.net/api/WaDone',
+    axios.post('https://feather213.azurewebsites.net/api/WaDone',
     //axios.post('https://localhost:8080/api/WaDone',
       this.postData, {
       headers: {
