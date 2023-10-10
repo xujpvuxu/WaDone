@@ -2,35 +2,37 @@ window.onload = function () {
   Vue.createApp({
     data: function () {
       return {
+        //url: 'https://feather213.azurewebsites.net/api/WaDone',
+        url: 'https://localhost:8080/api/WaDone',
         postData: {
           start: {
-            properity: 4,
-            energy: 3
+            properity: 2,
+            energy: 1
           },
           end: {
-            properity: 3,
-            energy: 3
+            properity: 2,
+            energy: 1
           },
-          pathCount: 7,
+          pathCount: 6,
           wood: {
-            count: 6,
-            trans: 1
-          },
-          fire: {
-            count: 5,
+            count: 4,
             trans: 2
           },
+          fire: {
+            count: 3,
+            trans: 1
+          },
           dust: {
-            count: 4,
-            trans: 3
+            count: 6,
+            trans: 1
           },
           gold: {
             count: 6,
-            trans: 2
+            trans: 1
           },
           water: {
-            count: 2,
-            trans: 1
+            count: 4,
+            trans: 3
           },
           task_Properity: 0,
           task_Properity_Count: 0,
@@ -38,20 +40,20 @@ window.onload = function () {
 
           needResult: true,
           startPath_0: {
-            x: 1,
-            y: 1
+            x: 3,
+            y: 5
           },
           startPath_1: {
-            x: 1,
-            y: 1
+            x: 4,
+            y: 5
           },
           endPath_0: {
-            x: 1,
-            y: 1
+            x: 4,
+            y: 3
           },
           endPath_1: {
-            x: 1,
-            y: 1
+            x: 5,
+            y: 3
           },
         },
         properitys: ["木", "火", "土", "金", "水"],
@@ -83,13 +85,12 @@ window.onload = function () {
       SetFourStatus: SetFourStatus
     },
     mounted: function () {
-      axios.get('https://feather213.azurewebsites.net/api/WaDone',
-      //axios.get('https://localhost:8080/api/WaDone',
-      {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+      axios.get(this.url,
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
     },
   }).mount("#app");
 
@@ -209,8 +210,12 @@ window.onload = function () {
     }
 
     let self = this;
-    axios.post('https://feather213.azurewebsites.net/api/WaDone',
-      //axios.post('https://localhost:8080/api/WaDone',
+
+    if(self.postData.pathCount % 2 != self.tempPathLimit %2){
+      this.postData.pathCount ++;
+    }
+
+    axios.post(self.url,
       this.postData, {
       headers: {
         'Content-Type': 'application/json'
@@ -230,7 +235,7 @@ window.onload = function () {
             if (response.data.trans.indexOf(response.data.index[index]) >= 0) {
 
               let diffSource = response.data.index[index] - response.data.index[index - 1];
-              let diffTarget = response.data.index[index] + 1 - response.data.index[index];
+              let diffTarget = response.data.index[index + 1]- response.data.index[index];
 
               if (diffSource == 5) {
                 self.ShowArray[son][add].text = (diffTarget == 1) ? "└" : "┘";

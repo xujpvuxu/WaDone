@@ -60,3 +60,10 @@ max-height: 100%;
 .resultTable div{
     height:100px;
 }
+
+.fourColorFocus{
+    background-color: purple;
+}
+.backColor{
+    background-color: #BB5E00;
+}

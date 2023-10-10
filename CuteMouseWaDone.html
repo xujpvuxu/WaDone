@@ -57,7 +57,12 @@
                 <div class="col-12">
                     <h1 class="bg-info">1.選擇起訖點</h1>
                     <div>
-                        <div>順序{{pointStatus}}</div>
+                        <div>點擊：
+                            <span v-if="pointStatus==0">初始點</span>
+                            <span v-else-if="pointStatus==1">初始後一點</span>
+                            <span v-else-if="pointStatus==2">終迄點</span>
+                            <span v-else-if="pointStatus==3">終迄前一點</span>
+                        </div>
                         <table class="m-3">
                             <tr v-for="y in 5">
                                 <td v-for="x in 5" style="cursor:pointer;" @click="SetPoint(x,y)">
@@ -113,7 +118,7 @@
                                         class="btn btn-primary m-3 bg-danger" style="cursor:pointer;"
                                         data-toggle="button" aria-pressed="false" autocomplete="off">火</button>
                                     <button @click="postData.start.properity = 2" type="button"
-                                        class="btn btn-primary m-3 bg-secondary" style="cursor:pointer;"
+                                        class="btn btn-primary m-3 backColor" style="cursor:pointer;"
                                         data-toggle="button" aria-pressed="false" autocomplete="off">土</button>
                                     <button @click="postData.start.properity = 3" type="button"
                                         class="btn btn-primary m-3 bg-warning" style="cursor:pointer;"
@@ -144,7 +149,7 @@
                                             data-toggle="button" aria-pressed="false"
                                             autocomplete="off">{{properitys[postData.start.properity]}}</button>
                                         <button v-else-if="postData.start.properity === 2" @click="SetPoint(x,y)"
-                                            type="button" class="btn btn-primary m-3 bg-secondary"
+                                            type="button" class="btn btn-primary m-3 backColor"
                                             style="cursor:pointer;" data-toggle="button" aria-pressed="false"
                                             autocomplete="off">{{properitys[postData.start.properity]}}</button>
                                         <button v-else-if="postData.start.properity === 3" @click="SetPoint(x,y)"
@@ -171,7 +176,7 @@
                                         class="btn btn-primary m-3 bg-danger" style="cursor:pointer;"
                                         data-toggle="button" aria-pressed="false" autocomplete="off">火</button>
                                     <button @click="postData.end.properity = 2" type="button"
-                                        class="btn btn-primary m-3 bg-secondary" style="cursor:pointer;"
+                                        class="btn btn-primary m-3 backColor" style="cursor:pointer;"
                                         data-toggle="button" aria-pressed="false" autocomplete="off">土</button>
                                     <button @click="postData.end.properity = 3" type="button"
                                         class="btn btn-primary m-3 bg-warning" style="cursor:pointer;"
@@ -201,7 +206,7 @@
                                         data-toggle="button" aria-pressed="false"
                                         autocomplete="off">{{properitys[postData.end.properity]}}</button>
                                     <button v-else-if="postData.end.properity === 2" @click="SetPoint(x,y)"
-                                        type="button" class="btn btn-primary m-3 bg-secondary" style="cursor:pointer;"
+                                        type="button" class="btn btn-primary m-3 backColor" style="cursor:pointer;"
                                         data-toggle="button" aria-pressed="false"
                                         autocomplete="off">{{properitys[postData.end.properity]}}</button>
                                     <button v-else-if="postData.end.properity === 3" @click="SetPoint(x,y)"
@@ -236,8 +241,8 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td>
-                                    <button type="button" @click="SetFourStatus(0)" class="btn btn-primary m-3 bg-info"
+                                <td @click="SetFourStatus(0)">
+                                    <button type="button"  class="btn btn-primary m-3 bg-info"
                                         style="cursor:pointer;" data-toggle="button" aria-pressed="false"
                                         autocomplete="off">0</button>
                                 </td>
@@ -250,37 +255,27 @@
                                     <td></td>
                                     <td class="bg-success">木</td>
                                     <td class="bg-danger">火</td>
-                                    <td class="bg-secondary">土</td>
+                                    <td class="backColor">土</td>
                                     <td class="bg-warning">金</td>
                                     <td class="bg-info">水</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>剩餘</td>
-                                    <td class="bg-success"><input type="number" min="0" v-model="postData.wood.count" />
-                                    </td>
-                                    <td class="bg-danger"><input type="number" min="0" v-model="postData.fire.count" />
-                                    </td>
-                                    <td class="bg-secondary"><input type="number" min="0"
-                                            v-model="postData.dust.count" /></td>
-                                    <td class="bg-warning"><input type="number" min="0" v-model="postData.gold.count" />
-                                    </td>
-                                    <td class="bg-info"><input type="number" min="0" v-model="postData.water.count" />
-                                    </td>
+                                    <td >剩餘</td>
+                                    <td :class="[fourStatus==0?'fourColorFocus':'bg-success']" ><input type="number" min="0" v-model="postData.wood.count" /> </td>
+                                    <td :class="[fourStatus==2?'fourColorFocus':'bg-danger']"><input type="number" min="0" v-model="postData.fire.count" /> </td>
+                                    <td :class="[fourStatus==4?'fourColorFocus':'backColor']"><input type="number" min="0" v-model="postData.dust.count" /></td>
+                                    <td :class="[fourStatus==6?'fourColorFocus':'bg-warning']"><input type="number" min="0" v-model="postData.gold.count" /> </td>
+                                    <td :class="[fourStatus==8?'fourColorFocus':'bg-info']"><input type="number" min="0" v-model="postData.water.count" /> </td>
                                 </tr>
                                 <tr>
                                     <td>轉彎剩餘</td>
-                                    <td class="bg-success"><input type="number" min="0" v-model="postData.wood.trans" />
-                                    </td>
-                                    <td class="bg-danger"><input type="number" min="0" v-model="postData.fire.trans" />
-                                    </td>
-                                    <td class="bg-secondary"><input type="number" min="0"
-                                            v-model="postData.dust.trans" /></td>
-                                    <td class="bg-warning"><input type="number" min="0" v-model="postData.gold.trans" />
-                                    </td>
-                                    <td class="bg-info"><input type="number" min="0" v-model="postData.water.trans" />
-                                    </td>
+                                    <td :class="[fourStatus==1?'fourColorFocus':'bg-success']"><input type="number" min="0" v-model="postData.wood.trans" /> </td>
+                                    <td :class="[fourStatus==3?'fourColorFocus':'bg-danger']"><input type="number" min="0" v-model="postData.fire.trans" /> </td>
+                                    <td :class="[fourStatus==5?'fourColorFocus':'backColor']"><input type="number" min="0" v-model="postData.dust.trans" /></td>
+                                    <td :class="[fourStatus==7?'fourColorFocus':'bg-warning']"><input type="number" min="0" v-model="postData.gold.trans" /> </td>
+                                    <td :class="[fourStatus==9?'fourColorFocus':'bg-info']"><input type="number" min="0" v-model="postData.water.trans" /> </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -309,7 +304,7 @@
                                             class="btn btn-primary m-3 bg-danger" style="cursor:pointer;"
                                             data-toggle="button" aria-pressed="false" autocomplete="off">火</button>
                                         <button @click="postData.task_Properity = 2" type="button"
-                                            class="btn btn-primary m-3 bg-secondary" style="cursor:pointer;"
+                                            class="btn btn-primary m-3 backColor" style="cursor:pointer;"
                                             data-toggle="button" aria-pressed="false" autocomplete="off">土</button>
                                         <button @click="postData.task_Properity = 3" type="button"
                                             class="btn btn-primary m-3 bg-warning" style="cursor:pointer;"
@@ -326,7 +321,7 @@
                                             class="btn btn-primary m-3 bg-danger" data-toggle="button"
                                             aria-pressed="false" autocomplete="off">3</button>
                                         <button type="button" @click="postData.task_Properity_Count = 5"
-                                            class="btn btn-primary m-3 bg-secondary" data-toggle="button"
+                                            class="btn btn-primary m-3 backColor" data-toggle="button"
                                             aria-pressed="false" autocomplete="off">5</button>
                                         <button type="button" @click="postData.task_Properity_Count = 7"
                                             class="btn btn-primary m-3 bg-warning" data-toggle="button"
@@ -342,7 +337,7 @@
                                             aria-pressed="false"
                                             autocomplete="off">{{properitys[postData.task_Properity]}}</button>
                                         <button v-else-if="postData.task_Properity === 2" type="button"
-                                            class="btn btn-primary m-3 bg-secondary" data-toggle="button"
+                                            class="btn btn-primary m-3 backColor" data-toggle="button"
                                             aria-pressed="false"
                                             autocomplete="off">{{properitys[postData.task_Properity]}}</button>
                                         <button v-else-if="postData.task_Properity === 3" type="button"
@@ -369,7 +364,7 @@
                                             class="btn btn-primary m-3 bg-danger" data-toggle="button"
                                             aria-pressed="false" autocomplete="off">12</button>
                                         <button type="button" @click="postData.task_TransProperity = 15"
-                                            class="btn btn-primary m-3 bg-secondary" data-toggle="button"
+                                            class="btn btn-primary m-3 backColor" data-toggle="button"
                                             aria-pressed="false" autocomplete="off">15</button>
                                         <button type="button" @click="postData.task_TransProperity = 18"
                                             class="btn btn-primary m-3 bg-warning" data-toggle="button"
@@ -385,7 +380,7 @@
 
                     </div>
                     <div>
-                        <table class="m-3 resultTable col-6">
+                        <table class="m-auto resultTable col-6">
                             <tr v-for="y in ShowArray">
                                 <td v-for="x in y">
                                     <div v-if=" x.color == 0" class="bg-white">
@@ -397,7 +392,7 @@
                                     <div v-else-if=" x.color == 2" class="bg-danger d-flex">
                                         <div class="m-auto" style="height: 10px; width: 10px;">{{x.text}}</div>
                                     </div>
-                                    <div v-else-if=" x.color == 3" class="bg-secondary d-flex">
+                                    <div v-else-if=" x.color == 3" class="backColor d-flex">
                                         <div class="m-auto" style="height: 10px; width: 10px;">{{x.text}}</div>
                                     </div>
                                     <div v-else-if=" x.color == 4" class="bg-warning d-flex">
