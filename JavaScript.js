@@ -6,33 +6,33 @@ window.onload = function () {
         //url: 'https://localhost:8080/api/WaDone',
         postData: {
           start: {
-            properity: 2,
+            properity: 1,
             energy: 1
           },
           end: {
-            properity: 2,
+            properity: 1,
             energy: 1
           },
-          pathCount: 6,
+          pathCount: 0,
           wood: {
-            count: 4,
-            trans: 2
+            count: 0,
+            trans: 0
           },
           fire: {
-            count: 3,
-            trans: 1
+            count: 0,
+            trans: 0
           },
           dust: {
-            count: 6,
-            trans: 1
+            count: 0,
+            trans: 0
           },
           gold: {
-            count: 6,
-            trans: 1
+            count: 0,
+            trans: 0
           },
           water: {
-            count: 4,
-            trans: 3
+            count: 0,
+            trans: 0
           },
           task_Properity: 0,
           task_Properity_Count: 0,
@@ -40,20 +40,20 @@ window.onload = function () {
 
           needResult: true,
           startPath_0: {
-            x: 3,
-            y: 5
+            x: 0,
+            y: 0
           },
           startPath_1: {
-            x: 4,
-            y: 5
+            x: 0,
+            y: 0
           },
           endPath_0: {
-            x: 4,
-            y: 3
+            x: 0,
+            y: 0
           },
           endPath_1: {
-            x: 5,
-            y: 3
+            x: 0,
+            y: 0
           },
         },
         properitys: ["木", "火", "土", "金", "水"],
