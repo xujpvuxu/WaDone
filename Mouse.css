@@ -65,5 +65,5 @@ max-height: 100%;
     background-color: purple;
 }
 .backColor{
-    background-color: #BB5E00;
+    background-color: #BB5E00 !important;
 }
