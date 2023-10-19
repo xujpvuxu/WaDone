@@ -74,6 +74,7 @@ window.onload = function () {
         //額外
         ProcessType: 0,
         chooseValue: true,
+        isFindingAnswer: false
       };
     },
     watch: {},
@@ -210,9 +211,10 @@ window.onload = function () {
     }
 
     let self = this;
+    self.isFindingAnswer = true;
 
-    if(self.postData.pathCount % 2 != self.tempPathLimit %2){
-      this.postData.pathCount ++;
+    if (self.postData.pathCount % 2 != self.tempPathLimit % 2) {
+      this.postData.pathCount++;
     }
 
     axios.post(self.url,
@@ -225,6 +227,7 @@ window.onload = function () {
         if (response.data.result.length != 0) {
           this.Result = response.data.result;
           this.ResultTrans = response.data.trans;
+          self.isFindingAnswer = false;
 
           for (let index = 0; index < response.data.index.length; index++) {
             const son = parseInt((response.data.index[index] - 1) / 5);
@@ -235,7 +238,7 @@ window.onload = function () {
             if (response.data.trans.indexOf(response.data.index[index]) >= 0) {
 
               let diffSource = response.data.index[index] - response.data.index[index - 1];
-              let diffTarget = response.data.index[index + 1]- response.data.index[index];
+              let diffTarget = response.data.index[index + 1] - response.data.index[index];
 
               if (diffSource == 5) {
                 self.ShowArray[son][add].text = (diffTarget == 1) ? "└" : "┘";
