@@ -227,7 +227,6 @@ window.onload = function () {
         if (response.data.result.length != 0) {
           this.Result = response.data.result;
           this.ResultTrans = response.data.trans;
-          self.isFindingAnswer = false;
 
           for (let index = 0; index < response.data.index.length; index++) {
             const son = parseInt((response.data.index[index] - 1) / 5);
@@ -255,6 +254,7 @@ window.onload = function () {
               self.ShowArray[son][add].text = "🧀";
             }
           }
+          self.isFindingAnswer = false;
         }
       })
   }
