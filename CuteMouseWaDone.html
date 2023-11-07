@@ -224,12 +224,7 @@
                             </tr>
                         </tbody>
                     </table>
-
-                    <h1 class="bg-info">3.選擇路徑</h1>
-                    <div class="text-center m-4">路徑長度： <input type="number" v-model="postData.pathCount" min="1"
-                            step="2" /> </div>
-
-                    <h1 class="bg-info">4.選擇場上剩餘屬性量</h1>
+                    <h1 class="bg-info">3.選擇場上剩餘屬性量</h1>
                     <div>
                         <table>
                             <tr v-for="y in 3">
@@ -280,7 +275,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <h1 class="bg-info">5.任務(無的話 幾個=0)</h1>
+                    <h1 class="bg-info">4.任務(無的話 幾個=0)</h1>
                     <div>
                         <table class="m-3">
                             <thead>
@@ -350,7 +345,7 @@
                                             autocomplete="off">{{properitys[postData.task_Properity]}}</button>
                                     </td>
                                     <td>
-                                        <input type="number" v-model="postData.task_Properity_Count" min="0" />
+                                        <div>{{postData.task_Properity_Count}}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -372,7 +367,31 @@
                                     </td>
                                     <td></td>
                                     <td>
-                                        <input type="number" v-model="postData.task_TransProperity" min="0" />
+                                        <div>{{postData.task_TransProperity}}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>路徑</td>
+                                    <td></td>
+                                    <td>
+                                        <button type="button" @click="postData.pathCount = 0"
+                                            class="btn btn-primary m-3 bg-success" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">0</button>
+                                        <button type="button" @click="postData.pathCount = 12"
+                                            class="btn btn-primary m-3 bg-danger" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">12</button>
+                                        <button type="button" @click="postData.pathCount = 15"
+                                            class="btn btn-primary m-3 backColor" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">15</button>
+                                        <button type="button" @click="postData.pathCount = 18"
+                                            class="btn btn-primary m-3 bg-warning" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">18</button>
+                                        <button type="button" @click="postData.pathCount = 25"
+                                            class="btn btn-primary m-3 bg-info" data-toggle="button"
+                                            aria-pressed="false" autocomplete="off">25</button>
+                                    <td></td>
+                                    <td>
+                                        <div>{{postData.pathCount}}</div>
                                     </td>
                                 </tr>
                             </tbody>
