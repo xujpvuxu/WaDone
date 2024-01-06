@@ -254,8 +254,8 @@ window.onload = function () {
               self.ShowArray[son][add].text = "🧀";
             }
           }
-          self.isFindingAnswer = false;
         }
+		self.isFindingAnswer = false;
       })
   }
 };
