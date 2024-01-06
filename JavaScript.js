@@ -2,8 +2,8 @@ window.onload = function () {
   Vue.createApp({
     data: function () {
       return {
-        url: 'https://feather213.azurewebsites.net/api/WaDone',
-        //url: 'https://localhost:8080/api/WaDone',
+        //url: 'https://feather213.azurewebsites.net/api/WaDone',
+        url: 'https://localhost:8080/api/WaDone',
         postData: {
           start: {
             properity: 1,
