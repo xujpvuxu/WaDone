@@ -2,8 +2,8 @@ window.onload = function () {
   Vue.createApp({
     data: function () {
       return {
-        url: 'https://feather213.azurewebsites.net/api/Excel/Test1',
-        //url: 'https://localhost:8080/api/Excel/Test1',
+        //url: 'https://feather213.azurewebsites.net/api/Excel/Test1',
+        url: 'https://localhost:8080/api/Excel/Test1',
         columns: [],
         responseData: [],
         showData: [],
