@@ -12,15 +12,14 @@
 <body>
     <div id="app" class="p-5">
         <!--篩選條件-->
-         <div class="d-flex justify-content-between">
-            <div  class="col-6">
-                <select class="form-control" v-model="selectIndex" @change="changeLocation">
+         <div class="d-flex justify-content-between m-5 " style="height: 30vh;">
+            <div  class="col-6 h-100">
+                <select class="form-control h-100" v-model="selectIndex" @change="changeLocation">
                     <option v-for="column in columns" :value="column.id">{{column.name}}{{a}}</option>
                 </select>
-
             </div>
-            <div  class="col-6">
-                <input class="w-100 mt-1 mb-3" type="text" v-model="inputValue">
+            <div  class="col-6 h-100">
+                <input class="w-100 h-100 mt-1 mb-3" type="text" v-model="inputValue">
             </div>
         </div>
 
