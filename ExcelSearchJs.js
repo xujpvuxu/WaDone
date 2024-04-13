@@ -3,12 +3,12 @@ window.onload = function () {
     data: function () {
       return {
         url: 'https://feather213.azurewebsites.net/api/Excel/Test1',
-        // url: 'https://localhost:8080/api/Excel/Test1',
+        //url: 'https://localhost:8080/api/Excel/Test1',
         columns: [],
         responseData: [],
         showData: [],
-        selectIndex:0,
-        inputValue:''
+        selectIndex: 0,
+        inputValue: ''
       };
     },
     watch: {
@@ -21,6 +21,7 @@ window.onload = function () {
     },
     methods: {
       changeLocation: changeLocation,
+      clearAndFocus: clearAndFocus
     },
     mounted: function () {
       let self = this;
@@ -34,7 +35,7 @@ window.onload = function () {
           self.responseData = response.data;
           self.columns = self.responseData.shift().map((x, index) => {
             return {
-              name: x,
+              name: x, g
               id: index,
               selected: false,
             };
@@ -47,8 +48,12 @@ window.onload = function () {
   }).mount("#app");
 
   // 選擇物件的Index
-  function changeLocation(number)
-  {
+  function changeLocation(number) {
     this.showData = this.responseData.filter(x => x[this.selectIndex].includes(this.inputValue));
+  }
+  //  清除文字並上焦點
+  function clearAndFocus() {
+    this.inputValue = '';
+    this.$refs.inputField.focus();
   }
 };
