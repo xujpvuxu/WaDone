@@ -35,7 +35,7 @@ window.onload = function () {
           self.responseData = response.data;
           self.columns = self.responseData.shift().map((x, index) => {
             return {
-              name: x, g
+              name: x, 
               id: index,
               selected: false,
             };
